@@ -2,6 +2,15 @@
     import { createEventDispatcher } from "svelte";
     let dispatch = createEventDispatcher();
 
+    import { activeState, refreshState } from './store/stores';
+
+    const updateState = (newState) => {activeState.set(newState)};
+
+    let searchValue;
+    let searchDog = ['dogs', 'Dogs',  'DOGS', 'puppies', 'dog', 'Dog', 'DOG', 'Puppies'];
+    let searchCat = ['kittens', 'cat', 'cats', 'Cat',  'Cats', 'CAT', 'CATS', 'Kittens'];
+    let searchRandom = ['random', 'randoms', 'RANDOM', 'RANDOMS'];
+
     let icon = '../build/favicon.png';
     let home_icon ='../build/home_white_2.png';
     let favorite_icon = '../build/favorite_white_2.png';
@@ -11,12 +20,21 @@
     let bookmark_icon = '../build/bookmark_white_2.png';
     let watch_later_icon = '../build/watch_later_white_2.png';
     let logout_icon = '../build/logout_white_2.png';
-    let ppc_icon = '../build/ppc_chevy.jpg';
+    let ppc_icon = '../build/ppc.png';
 
-    const refreshContent = () => {
-    console.log("Refresh contennt sent from navbar");
-    dispatch('refreshContent');
-}
+    const refresh = () => {
+        refreshState.update(value => value + 1);
+    };
+
+    $: console.log(searchValue);
+
+    const search = () => {
+        console.log(searchDog.indexOf(searchValue));
+        
+        if (searchDog.indexOf(searchValue) >= 0) return activeState.set('dogs');
+        if (searchCat.indexOf(searchValue) >= 0) return activeState.set('cats');
+        if (searchRandom.indexOf(searchValue) >= 0) return activeState.set('random');
+    }
 
 </script>
 
@@ -24,17 +42,21 @@
     <div class="content">
 
         <div class="left-content">
-            <img src={icon} alt="icon" class="nav-icon">
-            <input type="text" class="nav-search">
+            <img src={icon} alt="icon" class="nav-icon" on:click={() => updateState('home')}>
+            <!-- <input type="text" class="nav-search" > -->
+            <div id="search">
+                <input type='text'  id='searchText' bind:value={searchValue}/>
+                <button id='searchSubmit' on:click={() => search()}>Search</button>
+            </div>
         </div>
 
         <div class="middle-content">
-            <div class="mid-opt home">
+            <!-- <div class="mid-opt home">
                 <img src={home_icon} alt="home" title="Home">
-            </div>
-            <div class="mid-opt option2">
+            </div> -->
+            <!-- <div class="mid-opt option2">
                 <img src={favorite_icon} alt="favorite" title="Favorite">
-            </div>
+            </div> -->
             <!-- <div class="mid-opt option3">
                 <img src={refresh_icon} alt="refresh" title="Refresh">
             </div> -->
@@ -44,18 +66,18 @@
         </div>
 
         <div class="right-content">
-            <div class="account" title="Account">
+            <div class="account" title="Account" id="not-working">
                 <img src={ppc_icon} alt="profile" class="ppc">
                 <p>John</p>
             </div>
             <div class="icon-wrapper">
-                <img src={refresh_icon} alt="refresh" title="Refresh">
+                <img src={refresh_icon} alt="refresh" title="Refresh" on:click={() => refresh()}>
             </div>
-            <div class="icon-wrapper">
-                <img src={watch_later_icon} alt="Watch later" title="Watch later">
+            <div class="icon-wrapper" id="not-working">
+                <img src={watch_later_icon} alt="History" title="History">
             </div>
-            <div class="icon-wrapper">
-                <img src={logout_icon} alt="Logout" title="Logout">
+            <div class="icon-wrapper" id="not-working">
+                <img src={logout_icon} alt="Logout" title="Logout" >
             </div>
 
         </div>
@@ -71,12 +93,10 @@
     }
 
     .content{
-        background-color: #131313;
-        /* position: fixed; */
-        width: 1920px;
+        background-color: #18191A;
+        width: 100vw;
         height: 60px;
         display: flex;
-        /* grid-template-columns: 1fr 1fr 1fr; */
         justify-content: space-between;
         
     }
@@ -87,11 +107,15 @@
     }
 
     .nav-icon {
-        margin: 0px 10px 0px 10px;
+        margin: 0px 10px 0px 25px;
         height: 50px;
     }
+    
+    .nav-icon:hover {
+        cursor: pointer
+    }
 
-    .nav-search {
+    #searchText {
         margin: 0px 0px 0px 25px;
         border: none;
         height: 50px;
@@ -99,6 +123,29 @@
         background-color: #252525;
         font-weight: 600;
         border-radius: 10px;
+    }
+
+    #search {
+        display: flex;
+        align-items: center;
+    }
+
+    #searchSubmit {
+        margin-left: 5px;
+        margin-top: 7px;
+        border: none;
+        height: 50px;
+        background-color: #252525;
+        font-weight: 600;
+        border-radius: 10px;
+    }
+
+    #searchSubmit:hover {
+        background-color: #101010;
+        cursor: pointer
+    }
+    #search button {
+        color: white;
     }
     
     input {
@@ -114,17 +161,17 @@
         width: 500px;
     }
     
-    .mid-opt {
+    /* .mid-opt {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100%;
         width: 100px;
-        /* background-color: #151515; */
     }
 
     .mid-opt:hover {
         background-color: #202020;
+        cursor: pointer
     }
 
     .mid-opt img {
@@ -135,7 +182,7 @@
     .home {
         background-color: #202020;
         border-bottom: 2px solid lightblue;
-    }
+    } */
 
     .right-content {
         width: 500px;
@@ -156,6 +203,7 @@
 
     .account:hover {
         background-color: #303030;
+        cursor: pointer
     }
 
 
@@ -171,6 +219,7 @@
 
     .icon-wrapper:hover {
         background-color: #303030;
+        cursor: pointer
     }
 
 
@@ -184,5 +233,9 @@
         border-radius: 30px;
         margin-right: 10px;
 
+    }
+
+    #not-working:hover {
+        cursor: not-allowed;
     }
 </style>

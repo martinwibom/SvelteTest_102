@@ -1,56 +1,57 @@
 <script>
-import { createEventDispatcher } from "svelte";
-let dispatch = createEventDispatcher();
+import { activeState } from './store/stores';
 
-let ppc_icon = '../build/ppc_chevy.jpg';
+const updateState = (newState) => {activeState.set(newState)};
 
-const loadContent = (content) => {
-    console.log(content + " from sideBar is sent");
-    dispatch('recieveContent', content);
-}
+
+let ppc_icon = '../build/ppc.png';
+
+
+
+
+
 
 </script>
 
 <main>
     <div class="content">
-        <div class="sidebar-content ">
-            <img src={ppc_icon} alt="profile pic">
-            <h3>John Doe</h3>  
+        <div class="sidebar-content " id="not-working">
+            <img src={ppc_icon} alt="profile pic" >
+            <h3>John</h3>  
         </div>
 
-        <div class="sidebar-content ">
+        <div class="sidebar-content" id="not-working">
             <h3>Friends</h3>  
         </div>
-
-        <div class="sidebar-content" on:click={() =>loadContent("dogs")}>
+        <div class="sidebar-content" on:click={() => updateState('dogs')}>
             <h3>Dogs</h3>  
         </div>
 
-        <div class="sidebar-content " on:click={() =>loadContent("cats")}>
+        <div class="sidebar-content " on:click={() =>updateState("cats")}>
             <h3>Cats</h3>  
         </div>
 
-        <div class="sidebar-content ">
+        <div class="sidebar-content " id="not-working">
             <h3>Frogs</h3>  
         </div>
 
-        <div class="sidebar-content ">
+        <div class="sidebar-content " id="not-working">
             <h3>Turtles</h3>  
         </div>
 
-        <div class="sidebar-content ">
+        <div class="sidebar-content " id="not-working">
             <h3>Boats</h3>  
         </div>
 
-        <div class="sidebar-content ">
+        <div class="sidebar-content " id="not-working">
             <h3>Cars</h3>  
         </div>
 
-        <div class="sidebar-content ">
+        <div class="sidebar-content " id="not-working">
             <h3>Motorcycles</h3>  
         </div>
 
-        <div class="sidebar-content ">
+        <div class="sidebar-content " id="not-working">
             <h3>Show more</h3>  
         </div>
 
@@ -62,13 +63,12 @@ const loadContent = (content) => {
     main {
         position: fixed;
         margin-top: 60px;
-        /* border-bottom: 20px solid #535353; */
     }
 
     .content{
         height: 100vh;
-        width: 320px;
-        background-color: #131313;
+        width: 220px;
+        background-color: #18191A;
         padding-top: 10px;
         display: fixed;
     }
@@ -86,6 +86,7 @@ const loadContent = (content) => {
 
     .sidebar-content:hover {
         background-color: #202020;
+        cursor: pointer
     }
 
     .sidebar-content img {
@@ -97,5 +98,9 @@ const loadContent = (content) => {
     .sidebar-content h3 {
         color: white;
         font-size: 16px;
+    }
+
+    #not-working:hover {
+        cursor: not-allowed;
     }
 </style>
