@@ -1,7 +1,4 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-    let dispatch = createEventDispatcher();
-
     import { activeState, refreshState } from './store/stores';
 
     const updateState = (newState) => {activeState.set(newState)};
@@ -22,12 +19,14 @@
     let logout_icon = '../build/logout_white_2.png';
     let ppc_icon = '../build/ppc.png';
 
+    // Refreshes main content 
     const refresh = () => {
         refreshState.update(value => value + 1);
     };
 
     $: console.log(searchValue);
 
+    // Simple search function that allows for some keyword searching 
     const search = () => {
         console.log(searchDog.indexOf(searchValue));
         
@@ -43,7 +42,6 @@
 
         <div class="left-content">
             <img src={icon} alt="icon" class="nav-icon" on:click={() => updateState('home')}>
-            <!-- <input type="text" class="nav-search" > -->
             <div id="search">
                 <input type='text'  id='searchText' bind:value={searchValue}/>
                 <button id='searchSubmit' on:click={() => search()}>Search</button>
@@ -51,18 +49,7 @@
         </div>
 
         <div class="middle-content">
-            <!-- <div class="mid-opt home">
-                <img src={home_icon} alt="home" title="Home">
-            </div> -->
-            <!-- <div class="mid-opt option2">
-                <img src={favorite_icon} alt="favorite" title="Favorite">
-            </div> -->
-            <!-- <div class="mid-opt option3">
-                <img src={refresh_icon} alt="refresh" title="Refresh">
-            </div> -->
-            <!-- <div class="mid-opt option4">
-                <img src={admin_panel_icon} alt="admin panel" title="Admin Panel">
-            </div> -->
+                <!-- Middle content was moved out to the sides  -->
         </div>
 
         <div class="right-content">
@@ -160,29 +147,6 @@
         display: flex;
         width: 500px;
     }
-    
-    /* .mid-opt {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100px;
-    }
-
-    .mid-opt:hover {
-        background-color: #202020;
-        cursor: pointer
-    }
-
-    .mid-opt img {
-        height: 40px;
-    }
-
-
-    .home {
-        background-color: #202020;
-        border-bottom: 2px solid lightblue;
-    } */
 
     .right-content {
         width: 500px;
@@ -205,8 +169,6 @@
         background-color: #303030;
         cursor: pointer
     }
-
-
 
     .icon-wrapper {
         height: 50px;

@@ -8,16 +8,19 @@ let currentState;
 
 const imgSrc = [];
 
+// Keeps track of the current state
 activeState.subscribe(value => {
     currentState = value
 });
 
 
+// Checkes if refresh has been pressed, if so get new images
 refreshState.subscribe(value => {
     if(currentState === 'dogs') fetchImage();
 })
 
 
+// Recieves images from dog API and puts them in an array to be displayed
 function fetchImage() {
     hasError = false;
     fetch('https://dog.ceo/api/breeds/image/random/50')
@@ -31,6 +34,7 @@ function fetchImage() {
     });
 }
 
+// Loads dog pictures when component is initialized
 onMount (() => {
     fetchImage();
 });

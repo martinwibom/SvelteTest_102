@@ -31,7 +31,6 @@ const updateState = (newState) => {activeState.set(newState)};
 
     .wrapper {
         color: white;
-        /* text-align: center; */
         display: flex;
         justify-content: center;
     }
@@ -40,7 +39,6 @@ const updateState = (newState) => {activeState.set(newState)};
         text-align: center;
         padding-top: 150px;
         width: 680px;
-        /* height: 100vh; */
     }
 
     .content button {

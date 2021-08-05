@@ -1,6 +1,7 @@
 <script>
 import { activeState } from './store/stores';
 
+// Update the Store.js to keep the new state when its clicked from the sidebar, which in return changes out the main content
 const updateState = (newState) => {activeState.set(newState)};
 
 

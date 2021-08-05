@@ -12,19 +12,20 @@
     let currentState;
     let timeout = true;
 
-        
+    // Gets 25 cat pictures and put them last in an array. 
     function fetchCatImage() {
         for (let index = 24; index < 50; index++) {
         hasError = false;
         fetch('https://api.thecatapi.com/v1/images/search')
         .then(response => response.json())
-        .then(object => {imgSrc[index] = object[0].url, console.log('Hello')})
+        .then(object => {imgSrc[index] = object[0].url})
         .catch(error => {
             hasError = true;
         });
         }
     }
 
+    // Gets 25 dog pictures and put them first in an array
     function fetchDogImage() {
         hasError = false;
         fetch('https://dog.ceo/api/breeds/image/random/25')
@@ -38,7 +39,8 @@
         });
     }
 
-    function randomizeList (catArray, dogArray) {
+    // Takes the array with cat and dog pictures and randomize the list
+    function randomizeList () {
 
         // imgSrc = catArray.concat(dogArray);
         var currentIndex = imgSrc.length,  randomIndex;
@@ -58,6 +60,8 @@
         return imgSrc;
     }
 
+    // Runs the functions to get dog and cat pictures, waits 5sec before randomizing the array so cat API got time to load.
+    // Then displays the pictures as content
     const fetchImage = () => {
         timeout = true;
         fetchCatImage();
