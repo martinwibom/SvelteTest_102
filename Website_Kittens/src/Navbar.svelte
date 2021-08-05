@@ -3,7 +3,7 @@
 
     const updateState = (newState) => {activeState.set(newState)};
 
-    let searchValue;
+    let searchValue = "Type here...";
     let searchDog = ['dogs', 'Dogs',  'DOGS', 'puppies', 'dog', 'Dog', 'DOG', 'Puppies'];
     let searchCat = ['kittens', 'cat', 'cats', 'Cat',  'Cats', 'CAT', 'CATS', 'Kittens'];
     let searchRandom = ['random', 'randoms', 'RANDOM', 'RANDOMS'];
@@ -43,7 +43,7 @@
         <div class="left-content">
             <img src={icon} alt="icon" class="nav-icon" on:click={() => updateState('home')}>
             <div id="search">
-                <input type='text'  id='searchText' bind:value={searchValue}/>
+                <input type='text'  id='searchText' bind:value={searchValue} />
                 <button id='searchSubmit' on:click={() => search()}>Search</button>
             </div>
         </div>

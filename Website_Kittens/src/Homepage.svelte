@@ -8,8 +8,10 @@ const updateState = (newState) => {activeState.set(newState)};
 <main>
     <div class="wrapper">
         <div class="content">
-            <h1> Welcome to Kittens n Stuff!</h1>   
-            <p>Find all the pictures of random things that you might like here.</p>
+            <h1> Welcome to Kittens n Dogs!</h1>   
+            <div class="same-line">
+                <p>Find all the pictures of random things that you might like here.</p> <p id="smalltext">*Only cats and dogs</p>
+            </div>
             <button on:click={() => updateState('random')}>Load random images</button>  
         </div>
     </div>
@@ -23,6 +25,16 @@ const updateState = (newState) => {activeState.set(newState)};
         padding-top: 60px; 
         max-width: 100vw - 440px;
         height: 100vh;
+    }
+
+    .same-line {
+        justify-content: center;
+        display: flex;
+    }
+    
+    #smalltext{
+        font-size: 7px;
+        align-self: center;
     }
 
     h1 {
