@@ -1,9 +1,10 @@
 <script>
-    import { activeState, refreshState } from './store/stores';
+    import { activeState, refreshState, storeMessage } from './store/stores';
 
     const updateState = (newState) => {activeState.set(newState)};
 
-    let searchValue = "Type here...";
+    let searchValue = "";
+    let defaultText = 'Try "dog"'
     let searchDog = ['dogs', 'Dogs',  'DOGS', 'puppies', 'dog', 'Dog', 'DOG', 'Puppies'];
     let searchCat = ['kittens', 'cat', 'cats', 'Cat',  'Cats', 'CAT', 'CATS', 'Kittens'];
     let searchRandom = ['random', 'randoms', 'RANDOM', 'RANDOMS'];
@@ -28,11 +29,10 @@
 
     // Simple search function that allows for some keyword searching 
     const search = () => {
-        console.log(searchDog.indexOf(searchValue));
-        
         if (searchDog.indexOf(searchValue) >= 0) return activeState.set('dogs');
-        if (searchCat.indexOf(searchValue) >= 0) return activeState.set('cats');
-        if (searchRandom.indexOf(searchValue) >= 0) return activeState.set('random');
+        else if (searchCat.indexOf(searchValue) >= 0) return activeState.set('cats');
+        else if (searchRandom.indexOf(searchValue) >= 0) return activeState.set('random');
+        else {defaultText = 'Try something else', searchValue = ''};
     }
 
 </script>
@@ -43,7 +43,7 @@
         <div class="left-content">
             <img src={icon} alt="icon" class="nav-icon" on:click={() => updateState('home')}>
             <div id="search">
-                <input type='text'  id='searchText' bind:value={searchValue} />
+                <input type='text' placeholder={defaultText} id='searchText' bind:value={searchValue} />
                 <button id='searchSubmit' on:click={() => search()}>Search</button>
             </div>
         </div>

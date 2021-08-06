@@ -28,7 +28,6 @@
 
 	let activeTab = HomeContent;
 
-
 </script>
 
 <main>
@@ -37,6 +36,7 @@
 
 	<!-- Decide what content to be displayed -->
 	<svelte:component this={activeTab} />
+
 
 </main>
 
